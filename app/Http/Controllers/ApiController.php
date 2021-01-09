@@ -11,8 +11,10 @@ use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
-
+use Image;
+use Illuminate\Support\Facades\Storage;
 
 class ApiController extends Controller
 {
@@ -70,6 +72,45 @@ class ApiController extends Controller
         $id=$request->id_user;
         $data=User::find($id);
         return response($data);
+    }
+
+    public function addPengaduan(Request $request)
+    {
+        $rules = array(
+            'id_user' => 'required',
+            'judul' => 'required',
+            'pengaduan' => 'required',
+            'tempat' => 'required'
+        );
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return [
+                'status' => 404,
+                'message' => $validator->errors()->first()
+            ];
+        }
+            $file = $request->file('foto');
+            if($request->file('foto')){
+                $namaFile=date('YmdHis').$file->getClientOriginalName();
+                $normal = Image::make($file)->encode($file->extension());
+                Storage::disk('s3')->put('/images/'.$namaFile, (string)$normal, 'public');
+                $foto='https://lizartku.s3.us-east-2.amazonaws.com/images/'.$namaFile;
+            }
+
+            DB::table('pengaduans')->insert([
+                'id_user' => $request->id_user,
+                'judul' => $request->judul,
+                'pengaduan' => $request->pengaduan,
+                'tempat' => $request->tempat,
+                'foto' => $foto,
+            ]);
+            $message = 'Sukses';
+            $status = 200;
+
+        return response([
+            'message' => $message,
+            'status' => $status
+        ]);
     }
 
 }

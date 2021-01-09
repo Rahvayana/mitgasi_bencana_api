@@ -19,7 +19,7 @@ $router->group(['prefix'=>'apps'],function() use ($router){
     $router->post('/register',[ApiController::class, 'register']);
     $router->post('/login',[ApiController::class, 'login']);
     $router->post('/user',[ApiController::class, 'users']);
-    $router->post('/hitung',[ApiController::class, 'hitung']);
+    $router->post('/addPengaduan',[ApiController::class, 'addPengaduan']);
     $router->post('/history',[ApiController::class, 'history']);
     $router->get('/tips',[ApiController::class, 'tips']);
     $router->get('/produk',[ApiController::class, 'produk']);
