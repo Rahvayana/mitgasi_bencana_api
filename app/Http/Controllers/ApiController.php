@@ -103,6 +103,8 @@ class ApiController extends Controller
                 'pengaduan' => $request->pengaduan,
                 'tempat' => $request->tempat,
                 'foto' => $foto,
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
             ]);
             $message = 'Sukses';
             $status = 200;
