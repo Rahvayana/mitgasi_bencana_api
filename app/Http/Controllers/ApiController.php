@@ -115,4 +115,10 @@ class ApiController extends Controller
         ]);
     }
 
+    public function pengaduan(Request $request)
+    {
+        $data=DB::table('pengaduans')->where('id_user',$request->id_user)->get();
+        return response($data);
+    }
+
 }
