@@ -121,4 +121,13 @@ class ApiController extends Controller
         return response($data);
     }
 
+    public function galeri(Request $request)
+    {
+        $data=DB::table('galeris')
+        ->where('type',$request->type)
+        ->where('bencana',$request->bencana)
+        ->get();
+        return response($data);
+    }
+
 }
