@@ -28,5 +28,6 @@ $router->group(['prefix'=>'apps'],function() use ($router){
     $router->get('/getPost',[ApiController::class, 'getPost']);
     $router->post('/galeri',[ApiController::class, 'galeri']);
     $router->post('/pencegahan',[ApiController::class, 'pencegahan']);
+    $router->get('/kecamatan/{bencana}',[ApiController::class, 'kecamatan']);
 
 });

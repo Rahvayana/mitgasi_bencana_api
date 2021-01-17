@@ -138,4 +138,15 @@ class ApiController extends Controller
         return response()->json($pencegahan, 200);
     }
 
+    public function kecamatan($bencana)
+    {
+        $pencegahan = DB::table('menus')
+        ->select('kecamatan')
+        ->where('namabencana', 'like', '%' . $bencana . '%')
+        ->distinct('kecamatan')->get();
+        return response()->json($pencegahan, 200);
+
+
+    }
+
 }
