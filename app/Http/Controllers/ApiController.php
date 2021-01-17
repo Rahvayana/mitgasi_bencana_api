@@ -130,4 +130,12 @@ class ApiController extends Controller
         return response($data);
     }
 
+    function pencegahan(Request $request)
+    {
+        $pencegahan = DB::table('sopbencanas')->where('namasopbencana', 'like', '%' . $request->bencana . '%')->where('namasopbencana', 'like', '%' . $request->time . '%')->get();
+        // $list = DB::table('buku')->where('nama', 'like', '%' . $search . '%')->get();
+
+        return response()->json($pencegahan, 200);
+    }
+
 }
