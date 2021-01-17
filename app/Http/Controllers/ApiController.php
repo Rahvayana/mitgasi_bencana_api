@@ -145,7 +145,15 @@ class ApiController extends Controller
         ->where('namabencana', 'like', '%' . $bencana . '%')
         ->distinct('kecamatan')->get();
         return response()->json($pencegahan, 200);
-
+    }
+    public function detailKecamatan(Request $request)
+    {
+        $pencegahan = DB::table('menus')
+        ->select('menus.*')
+        ->where('namabencana', 'like', '%' . $request->bencana . '%')
+        ->where('kecamatan', 'like', '%' . $request->kec . '%')
+        ->distinct('kecamatan')->get();
+        return response()->json($pencegahan, 201);
 
     }
 
